@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+
+<!-- 영화 출력 -->
+	 <select id="movieList" resultType="movieDTO">
+         <![CDATA[
+         	select * from practice
+         ]]>
+	</select>
+
+<!-- articleNO에 맞는 영화 출력 -->
+	 <select id="movieInfo" resultType="movieDTO" parameterType="int">
+         <![CDATA[
+         	select * from practice where articleNO=#{articleNO}
+         ]]>
+         
+	</select>
+	
+<!-- 관리자페이지 영화 추가 -->
+	<insert id="movieAdd" parameterType="String">
+         <![CDATA[
+         	insert into practice 
+        	 (articleNO, title, title_en, age, opendate, explain, director, genre, runningtime, actor, poster_back, poster_main)
+        	 values(100, #{title}, #{title_en},#{age}, #{opendate}, #{explain}, #{director}, #{genre}, #{runningtime}, #{actor}, #{poster_back}, #{poster_main})
+         ]]>
+	</insert>
+
+<!-- 좋아요 업데이트 -->
+	<update id="updateLike" parameterType="int">
+		<![CDATA[
+         	update practice set like_num=like_num+1 where articleNO=#{articleNO}
+         ]]>
+	</update>
+
+<!-- 좋아요 출력 -->
+	<select id="selectLike" resultType="int" parameterType="int">
+         <![CDATA[
+         	select like_num from practice where articleNO=#{articleNO}
+         ]]>
+	</select>
+
+
+</mapper>
